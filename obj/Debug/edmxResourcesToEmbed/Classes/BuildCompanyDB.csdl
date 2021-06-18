@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BuildCompanyDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="BuildCompanyDBContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="UserSet" EntityType="BuildCompanyDB.User" />
+    <EntitySet Name="UserProfileSet" EntityType="BuildCompanyDB.UserProfile" />
+    <EntitySet Name="OrderSet" EntityType="BuildCompanyDB.Order" />
+    <EntitySet Name="RentSet" EntityType="BuildCompanyDB.Rent" />
+    <EntitySet Name="ProjectSet" EntityType="BuildCompanyDB.Project" />
+    <EntitySet Name="GoodsSet" EntityType="BuildCompanyDB.Goods" />
+    <EntitySet Name="VehiclesSet" EntityType="BuildCompanyDB.Vehicles" />
+    <AssociationSet Name="UserUserProfile" Association="BuildCompanyDB.UserUserProfile">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="UserProfile" EntitySet="UserProfileSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserOrder" Association="BuildCompanyDB.UserOrder">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="OrderRent" Association="BuildCompanyDB.OrderRent">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="Rent" EntitySet="RentSet" />
+    </AssociationSet>
+    <AssociationSet Name="OrderProject" Association="BuildCompanyDB.OrderProject">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="Project" EntitySet="ProjectSet" />
+    </AssociationSet>
+    <AssociationSet Name="RentGoods" Association="BuildCompanyDB.RentGoods">
+      <End Role="Rent" EntitySet="RentSet" />
+      <End Role="Goods" EntitySet="GoodsSet" />
+    </AssociationSet>
+    <AssociationSet Name="RentVehicles" Association="BuildCompanyDB.RentVehicles">
+      <End Role="Rent" EntitySet="RentSet" />
+      <End Role="Vehicles" EntitySet="VehiclesSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+    <Property Name="Role" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="BuildCompanyDB.UserUserProfile" FromRole="User" ToRole="UserProfile" />
+    <NavigationProperty Name="Order" Relationship="BuildCompanyDB.UserOrder" FromRole="User" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+    <Property Name="Phone" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+    <Property Name="Information" Type="String" Nullable="true" MaxLength="Max" Unicode="true" />
+    <Property Name="Picture" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+    <NavigationProperty Name="User" Relationship="BuildCompanyDB.UserUserProfile" FromRole="UserProfile" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateOfOrder" Type="DateTime" Nullable="false" />
+    <Property Name="OrderType" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+    <NavigationProperty Name="User" Relationship="BuildCompanyDB.UserOrder" FromRole="Order" ToRole="User" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Rent" Relationship="BuildCompanyDB.OrderRent" FromRole="Order" ToRole="Rent" />
+    <NavigationProperty Name="Project" Relationship="BuildCompanyDB.OrderProject" FromRole="Order" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="Rent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DurationTime" Type="Int32" Nullable="false" />
+    <Property Name="RentType" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+    <NavigationProperty Name="Order" Relationship="BuildCompanyDB.OrderRent" FromRole="Rent" ToRole="Order" />
+    <NavigationProperty Name="Goods" Relationship="BuildCompanyDB.RentGoods" FromRole="Rent" ToRole="Goods" />
+    <NavigationProperty Name="Vehicles" Relationship="BuildCompanyDB.RentVehicles" FromRole="Rent" ToRole="Vehicles" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectType" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+    <Property Name="ProjectPrice" Type="Double" Nullable="false" />
+    <Property Name="ProjectArea" Type="Double" Nullable="false" />
+    <Property Name="Information" Type="String" Nullable="true" Unicode="true" MaxLength="Max" />
+    <Property Name="Picture" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+    <Property Name="Foundation" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="BuildCompanyDB.OrderProject" FromRole="Project" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Goods">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GoodName" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+    <Property Name="Weight" Type="Double" Nullable="false" />
+    <Property Name="RentPrice" Type="Double" Nullable="false" />
+    <Property Name="Information" Type="String" Nullable="true" MaxLength="Max" Unicode="true" />
+    <Property Name="Picture" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+    <NavigationProperty Name="Rent" Relationship="BuildCompanyDB.RentGoods" FromRole="Goods" ToRole="Rent" />
+  </EntityType>
+  <EntityType Name="Vehicles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VehicleName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+    <Property Name="MaxWeight" Type="Double" Nullable="false" />
+    <Property Name="RentPrice" Type="Double" Nullable="false" />
+    <Property Name="GasolineLevel" Type="Double" Nullable="false" />
+    <Property Name="Information" Type="String" Nullable="true" MaxLength="Max" Unicode="true" />
+    <Property Name="Picture" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+    <NavigationProperty Name="Rent" Relationship="BuildCompanyDB.RentVehicles" FromRole="Vehicles" ToRole="Rent" />
+  </EntityType>
+  <Association Name="UserUserProfile">
+    <End Type="BuildCompanyDB.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="BuildCompanyDB.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+  </Association>
+  <Association Name="UserOrder">
+    <End Type="BuildCompanyDB.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="BuildCompanyDB.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderRent">
+    <End Type="BuildCompanyDB.Order" Role="Order" Multiplicity="0..1" />
+    <End Type="BuildCompanyDB.Rent" Role="Rent" Multiplicity="0..1" />
+  </Association>
+  <Association Name="OrderProject">
+    <End Type="BuildCompanyDB.Order" Role="Order" Multiplicity="0..1" />
+    <End Type="BuildCompanyDB.Project" Role="Project" Multiplicity="0..1" />
+  </Association>
+  <Association Name="RentGoods">
+    <End Type="BuildCompanyDB.Rent" Role="Rent" Multiplicity="0..1" />
+    <End Type="BuildCompanyDB.Goods" Role="Goods" Multiplicity="0..1" />
+  </Association>
+  <Association Name="RentVehicles">
+    <End Type="BuildCompanyDB.Rent" Role="Rent" Multiplicity="0..1" />
+    <End Type="BuildCompanyDB.Vehicles" Role="Vehicles" Multiplicity="0..1" />
+  </Association>
+</Schema>

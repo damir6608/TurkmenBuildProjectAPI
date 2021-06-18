@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BuildCompanyDBStoreContainer" CdmEntityContainer="BuildCompanyDBContainer">
+    <EntitySetMapping Name="UserSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.User)">
+        <MappingFragment StoreEntitySet="UserSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserProfileSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.UserProfile)">
+        <MappingFragment StoreEntitySet="UserProfileSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.Order)">
+        <MappingFragment StoreEntitySet="OrderSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DateOfOrder" ColumnName="DateOfOrder" />
+          <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.Rent)">
+        <MappingFragment StoreEntitySet="RentSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DurationTime" ColumnName="DurationTime" />
+          <ScalarProperty Name="RentType" ColumnName="RentType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.Project)">
+        <MappingFragment StoreEntitySet="ProjectSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProjectType" ColumnName="ProjectType" />
+          <ScalarProperty Name="ProjectPrice" ColumnName="ProjectPrice" />
+          <ScalarProperty Name="ProjectArea" ColumnName="ProjectArea" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="Foundation" ColumnName="Foundation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoodsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.Goods)">
+        <MappingFragment StoreEntitySet="GoodsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GoodName" ColumnName="GoodName" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="RentPrice" ColumnName="RentPrice" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiclesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.Vehicles)">
+        <MappingFragment StoreEntitySet="VehiclesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="VehicleName" ColumnName="VehicleName" />
+          <ScalarProperty Name="MaxWeight" ColumnName="MaxWeight" />
+          <ScalarProperty Name="RentPrice" ColumnName="RentPrice" />
+          <ScalarProperty Name="GasolineLevel" ColumnName="GasolineLevel" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserUserProfile" TypeName="BuildCompanyDB.UserUserProfile" StoreEntitySet="UserProfileSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="UserProfile">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OrderRent" TypeName="BuildCompanyDB.OrderRent" StoreEntitySet="RentSet">
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="Order_Id" />
+      </EndProperty>
+      <EndProperty Name="Rent">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Order_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OrderProject" TypeName="BuildCompanyDB.OrderProject" StoreEntitySet="ProjectSet">
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="Order_Id" />
+      </EndProperty>
+      <EndProperty Name="Project">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Order_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RentGoods" TypeName="BuildCompanyDB.RentGoods" StoreEntitySet="GoodsSet">
+      <EndProperty Name="Rent">
+        <ScalarProperty Name="Id" ColumnName="Rent_Id" />
+      </EndProperty>
+      <EndProperty Name="Goods">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Rent_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RentVehicles" TypeName="BuildCompanyDB.RentVehicles" StoreEntitySet="VehiclesSet">
+      <EndProperty Name="Rent">
+        <ScalarProperty Name="Id" ColumnName="Rent_Id" />
+      </EndProperty>
+      <EndProperty Name="Vehicles">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Rent_Id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

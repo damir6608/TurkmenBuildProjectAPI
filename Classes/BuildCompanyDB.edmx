@@ -1,0 +1,506 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BuildCompanyDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BuildCompanyDBStoreContainer">
+    <EntitySet Name="UserSet" EntityType="BuildCompanyDB.Store.UserSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserProfileSet" EntityType="BuildCompanyDB.Store.UserProfileSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderSet" EntityType="BuildCompanyDB.Store.OrderSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RentSet" EntityType="BuildCompanyDB.Store.RentSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectSet" EntityType="BuildCompanyDB.Store.ProjectSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GoodsSet" EntityType="BuildCompanyDB.Store.GoodsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VehiclesSet" EntityType="BuildCompanyDB.Store.VehiclesSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserUserProfile" Association="BuildCompanyDB.Store.UserUserProfile">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="UserProfile" EntitySet="UserProfileSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserOrder" Association="BuildCompanyDB.Store.UserOrder">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="OrderRent" Association="BuildCompanyDB.Store.OrderRent">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="Rent" EntitySet="RentSet" />
+    </AssociationSet>
+    <AssociationSet Name="OrderProject" Association="BuildCompanyDB.Store.OrderProject">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="Project" EntitySet="ProjectSet" />
+    </AssociationSet>
+    <AssociationSet Name="RentGoods" Association="BuildCompanyDB.Store.RentGoods">
+      <End Role="Rent" EntitySet="RentSet" />
+      <End Role="Goods" EntitySet="GoodsSet" />
+    </AssociationSet>
+    <AssociationSet Name="RentVehicles" Association="BuildCompanyDB.Store.RentVehicles">
+      <End Role="Rent" EntitySet="RentSet" />
+      <End Role="Vehicles" EntitySet="VehiclesSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UserSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Role" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserProfileSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Information" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Picture" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateOfOrder" Type="datetime" Nullable="false" />
+    <Property Name="OrderType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RentSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DurationTime" Type="int" Nullable="false" />
+    <Property Name="RentType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Order_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ProjectSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProjectPrice" Type="float" Nullable="false" />
+    <Property Name="ProjectArea" Type="float" Nullable="false" />
+    <Property Name="Information" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Picture" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Foundation" Type="bit" Nullable="false" />
+    <Property Name="Order_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="GoodsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GoodName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Weight" Type="float" Nullable="false" />
+    <Property Name="RentPrice" Type="float" Nullable="false" />
+    <Property Name="Information" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Picture" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rent_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="VehiclesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VehicleName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MaxWeight" Type="float" Nullable="false" />
+    <Property Name="RentPrice" Type="float" Nullable="false" />
+    <Property Name="GasolineLevel" Type="float" Nullable="false" />
+    <Property Name="Information" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Picture" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rent_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <Association Name="UserUserProfile">
+    <End Role="User" Type="BuildCompanyDB.Store.UserSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserProfile" Type="BuildCompanyDB.Store.UserProfileSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserOrder">
+    <End Role="User" Type="BuildCompanyDB.Store.UserSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Order" Type="BuildCompanyDB.Store.OrderSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderRent">
+    <End Role="Order" Type="BuildCompanyDB.Store.OrderSet" Multiplicity="0..1" />
+    <End Role="Rent" Type="BuildCompanyDB.Store.RentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rent">
+        <PropertyRef Name="Order_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderProject">
+    <End Role="Order" Type="BuildCompanyDB.Store.OrderSet" Multiplicity="0..1" />
+    <End Role="Project" Type="BuildCompanyDB.Store.ProjectSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="Order_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RentGoods">
+    <End Role="Rent" Type="BuildCompanyDB.Store.RentSet" Multiplicity="0..1" />
+    <End Role="Goods" Type="BuildCompanyDB.Store.GoodsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Goods">
+        <PropertyRef Name="Rent_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RentVehicles">
+    <End Role="Rent" Type="BuildCompanyDB.Store.RentSet" Multiplicity="0..1" />
+    <End Role="Vehicles" Type="BuildCompanyDB.Store.VehiclesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vehicles">
+        <PropertyRef Name="Rent_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BuildCompanyDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="BuildCompanyDBContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserSet" EntityType="BuildCompanyDB.User" />
+          <EntitySet Name="UserProfileSet" EntityType="BuildCompanyDB.UserProfile" />
+          <EntitySet Name="OrderSet" EntityType="BuildCompanyDB.Order" />
+          <EntitySet Name="RentSet" EntityType="BuildCompanyDB.Rent" />
+          <EntitySet Name="ProjectSet" EntityType="BuildCompanyDB.Project" />
+          <EntitySet Name="GoodsSet" EntityType="BuildCompanyDB.Goods" />
+          <EntitySet Name="VehiclesSet" EntityType="BuildCompanyDB.Vehicles" />
+          <AssociationSet Name="UserUserProfile" Association="BuildCompanyDB.UserUserProfile">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="UserProfile" EntitySet="UserProfileSet" />
+          </AssociationSet>
+          <AssociationSet Name="UserOrder" Association="BuildCompanyDB.UserOrder">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Order" EntitySet="OrderSet" />
+          </AssociationSet>
+          <AssociationSet Name="OrderRent" Association="BuildCompanyDB.OrderRent">
+            <End Role="Order" EntitySet="OrderSet" />
+            <End Role="Rent" EntitySet="RentSet" />
+          </AssociationSet>
+          <AssociationSet Name="OrderProject" Association="BuildCompanyDB.OrderProject">
+            <End Role="Order" EntitySet="OrderSet" />
+            <End Role="Project" EntitySet="ProjectSet" />
+          </AssociationSet>
+          <AssociationSet Name="RentGoods" Association="BuildCompanyDB.RentGoods">
+            <End Role="Rent" EntitySet="RentSet" />
+            <End Role="Goods" EntitySet="GoodsSet" />
+          </AssociationSet>
+          <AssociationSet Name="RentVehicles" Association="BuildCompanyDB.RentVehicles">
+            <End Role="Rent" EntitySet="RentSet" />
+            <End Role="Vehicles" EntitySet="VehiclesSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+          <NavigationProperty Name="UserProfile" Relationship="BuildCompanyDB.UserUserProfile" FromRole="User" ToRole="UserProfile" />
+          <NavigationProperty Name="Order" Relationship="BuildCompanyDB.UserOrder" FromRole="User" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+          <Property Name="Information" Type="String" Nullable="true" MaxLength="Max" Unicode="true" />
+          <Property Name="Picture" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+          <NavigationProperty Name="User" Relationship="BuildCompanyDB.UserUserProfile" FromRole="UserProfile" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateOfOrder" Type="DateTime" Nullable="false" />
+          <Property Name="OrderType" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+          <NavigationProperty Name="User" Relationship="BuildCompanyDB.UserOrder" FromRole="Order" ToRole="User" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rent" Relationship="BuildCompanyDB.OrderRent" FromRole="Order" ToRole="Rent" />
+          <NavigationProperty Name="Project" Relationship="BuildCompanyDB.OrderProject" FromRole="Order" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Rent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DurationTime" Type="Int32" Nullable="false" />
+          <Property Name="RentType" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+          <NavigationProperty Name="Order" Relationship="BuildCompanyDB.OrderRent" FromRole="Rent" ToRole="Order" />
+          <NavigationProperty Name="Goods" Relationship="BuildCompanyDB.RentGoods" FromRole="Rent" ToRole="Goods" />
+          <NavigationProperty Name="Vehicles" Relationship="BuildCompanyDB.RentVehicles" FromRole="Rent" ToRole="Vehicles" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectType" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+          <Property Name="ProjectPrice" Type="Double" Nullable="false" />
+          <Property Name="ProjectArea" Type="Double" Nullable="false" />
+          <Property Name="Information" Type="String" Nullable="true" Unicode="true" MaxLength="Max" />
+          <Property Name="Picture" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+          <Property Name="Foundation" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="BuildCompanyDB.OrderProject" FromRole="Project" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodName" Type="String" Nullable="false" Unicode="true" MaxLength="Max" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="RentPrice" Type="Double" Nullable="false" />
+          <Property Name="Information" Type="String" Nullable="true" MaxLength="Max" Unicode="true" />
+          <Property Name="Picture" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+          <NavigationProperty Name="Rent" Relationship="BuildCompanyDB.RentGoods" FromRole="Goods" ToRole="Rent" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+          <Property Name="MaxWeight" Type="Double" Nullable="false" />
+          <Property Name="RentPrice" Type="Double" Nullable="false" />
+          <Property Name="GasolineLevel" Type="Double" Nullable="false" />
+          <Property Name="Information" Type="String" Nullable="true" MaxLength="Max" Unicode="true" />
+          <Property Name="Picture" Type="String" Nullable="false" MaxLength="Max" Unicode="true" />
+          <NavigationProperty Name="Rent" Relationship="BuildCompanyDB.RentVehicles" FromRole="Vehicles" ToRole="Rent" />
+        </EntityType>
+        <Association Name="UserUserProfile">
+          <End Type="BuildCompanyDB.User" Role="User" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BuildCompanyDB.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+        </Association>
+        <Association Name="UserOrder">
+          <End Type="BuildCompanyDB.User" Role="User" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BuildCompanyDB.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrderRent">
+          <End Type="BuildCompanyDB.Order" Role="Order" Multiplicity="0..1" >
+          </End>
+          <End Type="BuildCompanyDB.Rent" Role="Rent" Multiplicity="0..1" />
+        </Association>
+        <Association Name="OrderProject">
+          <End Type="BuildCompanyDB.Order" Role="Order" Multiplicity="0..1" >
+          </End>
+          <End Type="BuildCompanyDB.Project" Role="Project" Multiplicity="0..1" />
+        </Association>
+        <Association Name="RentGoods">
+          <End Type="BuildCompanyDB.Rent" Role="Rent" Multiplicity="0..1" >
+          </End>
+          <End Type="BuildCompanyDB.Goods" Role="Goods" Multiplicity="0..1" />
+        </Association>
+        <Association Name="RentVehicles">
+          <End Type="BuildCompanyDB.Rent" Role="Rent" Multiplicity="0..1" >
+          </End>
+          <End Type="BuildCompanyDB.Vehicles" Role="Vehicles" Multiplicity="0..1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BuildCompanyDBStoreContainer" CdmEntityContainer="BuildCompanyDBContainer">
+    <EntitySetMapping Name="UserSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.User)">
+        <MappingFragment StoreEntitySet="UserSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserProfileSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.UserProfile)">
+        <MappingFragment StoreEntitySet="UserProfileSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.Order)">
+        <MappingFragment StoreEntitySet="OrderSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DateOfOrder" ColumnName="DateOfOrder" />
+          <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.Rent)">
+        <MappingFragment StoreEntitySet="RentSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DurationTime" ColumnName="DurationTime" />
+          <ScalarProperty Name="RentType" ColumnName="RentType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.Project)">
+        <MappingFragment StoreEntitySet="ProjectSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProjectType" ColumnName="ProjectType" />
+          <ScalarProperty Name="ProjectPrice" ColumnName="ProjectPrice" />
+          <ScalarProperty Name="ProjectArea" ColumnName="ProjectArea" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="Foundation" ColumnName="Foundation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoodsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.Goods)">
+        <MappingFragment StoreEntitySet="GoodsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GoodName" ColumnName="GoodName" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="RentPrice" ColumnName="RentPrice" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiclesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BuildCompanyDB.Vehicles)">
+        <MappingFragment StoreEntitySet="VehiclesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="VehicleName" ColumnName="VehicleName" />
+          <ScalarProperty Name="MaxWeight" ColumnName="MaxWeight" />
+          <ScalarProperty Name="RentPrice" ColumnName="RentPrice" />
+          <ScalarProperty Name="GasolineLevel" ColumnName="GasolineLevel" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserUserProfile" TypeName="BuildCompanyDB.UserUserProfile" StoreEntitySet="UserProfileSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="UserProfile">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OrderRent" TypeName="BuildCompanyDB.OrderRent" StoreEntitySet="RentSet">
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="Order_Id" />
+      </EndProperty>
+      <EndProperty Name="Rent">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Order_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OrderProject" TypeName="BuildCompanyDB.OrderProject" StoreEntitySet="ProjectSet">
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="Order_Id" />
+      </EndProperty>
+      <EndProperty Name="Project">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Order_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RentGoods" TypeName="BuildCompanyDB.RentGoods" StoreEntitySet="GoodsSet">
+      <EndProperty Name="Rent">
+        <ScalarProperty Name="Id" ColumnName="Rent_Id" />
+      </EndProperty>
+      <EndProperty Name="Goods">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Rent_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RentVehicles" TypeName="BuildCompanyDB.RentVehicles" StoreEntitySet="VehiclesSet">
+      <EndProperty Name="Rent">
+        <ScalarProperty Name="Id" ColumnName="Rent_Id" />
+      </EndProperty>
+      <EndProperty Name="Vehicles">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Rent_Id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
